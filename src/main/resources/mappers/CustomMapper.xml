@@ -39,26 +39,32 @@
     </select>
 
 
-    <!--거래처 조회-->
-    <!--    <select id="searchCustom" parameterType="String" resultType="CustomVO">-->
-    <!--        SELECT busi_num, custom-->
-    <!--        FROM CUSTOM-->
-    <!--        WHERE-->
-    <!--            <if test="isNotNull(busi_num)">-->
-    <!--              busi_num like '%' || '#{busi_num} ' || '%'-->
-    <!--    </if>-->
-    <!--           or custom like '%' || '#{custom}' || '%'-->
-    <!--    </select>-->
+    <!--거래처 검색-->
+    <select id="customSearchList" parameterType="String" resultType="CustomVO">
+        select * from custom
+        where busi_num like '%'|| #{busi_num} ||'%'
+        and custom like '%'|| #{custom} ||'%'
+        <!--        SELECT busi_num, custom-->
+        <!--        FROM CUSTOM-->
+        <!--        WHERE 1=1-->
+        <!--        <if test="isNotNull(busi_num)">-->
+        <!--            or busi_num like '%' || '#{busi_num} ' || '%'-->
+        <!--        </if>-->
+        <!--        <if test="isNotNull(custom)">-->
+        <!--            or custom like '%' || '#{custom}' || '%'-->
+        <!--        </if>-->
+    </select>
 
 
     <!--거래처 삭제-->
-    <delete id="deleteCustom" parameterType="CustomVO">
+    <delete id="deleteCustom" parameterType="String">
         DELETE
         FROM CUSTOM
-        WHERE busi_num = #{busi_num}
-          and custom = #{custom}
+        WHERE busi_num = #{busiNum}
     </delete>
 
+
+    <!--거래처 정보 수정-->
     <update id="updateCustom" parameterType="CustomVO">
         update custom
         set shortName=#{shortName,jdbcType=CHAR},

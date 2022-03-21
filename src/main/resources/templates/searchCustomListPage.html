@@ -14,7 +14,7 @@
 
             location.href = '/customSearchList?busiNum=' + busiNum + '&custom=' + custom;
         }
-    </script><!---->
+    </script>
 </head>
 <body>
     <form>
@@ -44,8 +44,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="custom : ${customList}">
-                        <td name="busi_num" th:text="${custom.busi_num}"></td>
+                    <tr th:each="custom : ${customSearchList}">
+                        <td name="busi_num" th:text="${custom.busi_num}"><a onclick=""/></td>
                         <td name="custom" th:text="${custom.custom}"></td>
                     </tr>
                 </tbody>

@@ -13,7 +13,7 @@ public interface CustomDAO {
 
 
     //거래처 목록 조회
-//    List<CustomVO> customList();
+    List<CustomVO> customSearchList(String busi_num, String custom);
 
 
     //거래처 목록
@@ -24,7 +24,7 @@ public interface CustomDAO {
 
 
     //거래처 삭제
-    void deleteCustom(CustomVO customVo);
+    void deleteCustom(String busiNum);
 
 
 }

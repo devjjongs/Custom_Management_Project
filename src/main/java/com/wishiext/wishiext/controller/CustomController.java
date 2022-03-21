@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CustomController {
@@ -63,15 +66,16 @@ public class CustomController {
     }
 
 
-//    //    거래처 검색 메소드
+    //    //    거래처 검색 메소드
 //    //    파라미터 : 사업자번호, 거래처명
-//    @RequestMapping(value = {"", "/", "/custommanage"})
-//    public String customSearchList(Model model, @RequestParam(value = "busi_num") String busi_num, @RequestParam(value = "custom") String custom) throws Exception {
-//        System.out.println("custom search 진입");
-//        System.out.println("busi_num : " + busi_num);
-//        System.out.println("custom : " + custom);
+    @RequestMapping(value = {"/", "/customSearchList"})
+    public String customSearchList(Model model, @RequestParam(value = "busiNum") String busi_num, @RequestParam(value = "custom") String custom) throws Exception {
+        System.out.println("custom search 진입");
+        System.out.println("busiNum : " + busi_num);
+        System.out.println("custom : " + custom);
 //
-//        List<CustomVO> customSearchList = customService.searchCustom(busi_num, custom);
+        List<CustomVO> customSearchList = customService.searchCustom(busi_num, custom);
+        System.out.println(customSearchList.get(0));
 //
 //        ModelAndView mav = new ModelAndView();
 //
@@ -81,8 +85,10 @@ public class CustomController {
 //        map.put("custom", custom);
 //        mav.addObject("map", map);
 //        mav.setViewName("customanage");
-//        return null;
-//    }
+
+        model.addAttribute("customSearchList", customSearchList);
+        return "searchCustomListPage";
+    }
 
 
 //    @RequestMapping(value = "/customInfo", method = {RequestMethod.POST})
@@ -107,18 +113,18 @@ public class CustomController {
     }
 
     //거래처 정보 수정
-    @PostMapping("updateCustom")
+    @PostMapping("/updateCustom")
     public String updateCustom(CustomVO customVo) {
         System.out.println(customVo);
         customService.updateCustom(customVo);
         return "redirect:/";
     }
 
-
     //거래처 삭제
-    @RequestMapping("deleteCustom")
-    public String deleteCustom(CustomVO customVo) {
-        customService.deleteCustom(customVo);
+    @RequestMapping("/deleteCustom")
+    public String deleteCustom(String busiNum) {
+        System.out.println(busiNum);
+        customService.deleteCustom(busiNum);
         return "redirect:/";
     }
 

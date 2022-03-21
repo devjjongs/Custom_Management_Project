@@ -16,14 +16,21 @@ public class CustomServiceImpl implements CustomService {
     // 거래처 등록
     @Override
     public void insertCustom(CustomVO customVo) {
+        System.out.println(customVo.getBusi_num());
         customDao.insertCustom(customVo);
+    }
+
+    @Override
+    public List<CustomVO> searchCustom(String busi_num, String custom) {
+        List<CustomVO> searchCustom = customDao.customSearchList(busi_num, custom);
+        return searchCustom;
     }
 
     //거래처 조회
     @Override
     public List<CustomVO> customList() {
 
-//        System.out.println("asdfadfadfasdfd");
+        System.out.println("asdfadfadfasdfd");
 
         List<CustomVO> customList = customDao.customList();
 
@@ -40,7 +47,9 @@ public class CustomServiceImpl implements CustomService {
 
     //거래처 정보 삭제
     @Override
-    public void deleteCustom(CustomVO customVo) {
-        customDao.deleteCustom(customVo);
+    public void deleteCustom(String busiNum) {
+
+        System.out.println(busiNum);
+        customDao.deleteCustom(busiNum);
     }
 }

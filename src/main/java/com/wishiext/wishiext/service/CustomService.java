@@ -8,7 +8,7 @@ public interface CustomService {
 
     void insertCustom(CustomVO customVo);   //  거래처 등록
 
-//    List<CustomVO> searchCustom(String busi_num, String custom) ;// 거래처 목록 조회
+    List<CustomVO> searchCustom(String busi_num, String custom) ;// 거래처 목록 조회
 
     //거래처 조회
     List<CustomVO> customList();
@@ -18,5 +18,5 @@ public interface CustomService {
 
     void updateCustom(CustomVO customVo);   //  거래처 정보 수정
 
-    void deleteCustom(CustomVO customVo);   //  거래처 삭제
+    void deleteCustom(String busiNum);   //  거래처 삭제
 }

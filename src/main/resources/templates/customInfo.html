@@ -57,6 +57,22 @@
             console.log("값변경테스트: " + value);
             $("#changeInput").val(value);
         }
+
+        // function customUpdate() {
+        //
+        //     $('#updateCustom').action
+        // }
+
+        function deleteCustom() {
+            if (confirm('삭제하시겠습니까?')) {
+
+                var busiNum = $('#busi_num').val();
+                console.log(busiNum);
+
+                location.href = '/deleteCustom?busiNum=' + busiNum;
+            }
+        }
+
     </script>
     <script>
         $('input:radio[name="co_yn"]').val();
@@ -70,18 +86,19 @@
     </script>
 </head>
 <body>
-    <form action="updateCustom" method="post">
+    <!--    <form action="updateCustom" method="post">-->
+    <form id="updateCustom" method="post">
         <div>
             <h2>거래처 등록</h2>
             <button type="reset">초기화</button>
-            <button type="submit" value="등록">등록</button>
-            <button type="submit" value="수정">수정</button>
-            <form action="deleteCustom" method="post">
-                <button type="submit" value="삭제">삭제</button>
-            </form>
+            <!--            <button type="submit" value="등록">등록</button>-->
+            <button type="submit">수정</button>
+            <!--            <button type="button" onclick="customUpdate()" value="수정"></button>-->
+            <button type="button" onclick="deleteCustom()">삭제</button>
         </div>
         <div>
-            <label for="busi_num">사업자번호<input id="busi_num" name="busi_num" type="text"></label>
+            <!--            <label for="busi_num">사업자번호<input id="busi_num" name="busi_num" type="text"></label>-->
+            사업자번호<input id="busi_num" name="busi_num" type="text">
             <label for="shortName">약칭<input id="shortName" name="shortName" type="text"></label><br>
             <label for="custom">거래처명<input id="custom" name="custom" type="text"></label><br>
             <label for="ceo">대표자<input id="ceo" name="ceo" type="text"></label>
