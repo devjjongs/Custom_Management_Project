@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>거래처 관리</title>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script><!--JQuery CDN-->
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <script>
+        function execPostCode() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                    var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraRoadAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if (extraRoadAddr !== '') {
+                        extraRoadAddr = ' (' + extraRoadAddr + ')';
+                    }
+                    // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                    if (fullRoadAddr !== '') {
+                        fullRoadAddr += extraRoadAddr;
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    console.log(data.zonecode);
+                    console.log(fullRoadAddr);
+
+
+                    $("[name=post_num]").val(data.zonecode);
+                    $("[name=addr1]").val(fullRoadAddr);
+
+                    /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+                    document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+                    document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+                }
+            }).open();
+        }
+    </script><!--다음 우편번호 검색 api-->
+    <script>
+        var selectBoxChange = function (value) {
+            console.log("값변경테스트: " + value);
+            $("#changeInput").val(value);
+        }
+    </script>
+    <script>
+        $('input:radio[name="co_yn"]').val();
+    </script><!--법인여부 라디오버튼 체크박스-->
+    <script>
+        $('input:radio[name="foreign_yn"]').val();
+    </script><!--법인여부 라디오버튼 체크박스-->
+    <script type="text/javascript">
+        //name으로 select값 가져오기
+        $("select[name=tax_yn]").val();
+    </script>
+</head>
+<body>
+    <div>
+        <h2>거래처 등록</h2>
+        <button type="reset">초기화</button>
+        <button type="submit" value="등록">등록</button>
+        <button type="submit">수정</button>
+        <button type="submit">삭제</button>
+    </div>
+    <form action="insertCustom" method="post">
+        <div>
+            <label for="busi_num">사업자번호<input id="busi_num" name="busi_num" type="text"></label>
+            <label for="shortName">약칭<input id="shortName" name="shortName" type="text"></label><br>
+            <label for="custom">거래처명<input id="custom" name="custom" type="text"></label><br>
+            <label for="ceo">대표자<input id="ceo" name="ceo" type="text"></label>
+            <label for="charge_person">담당자<input id="charge_person" name="charge_person" type="text"></label><br>
+            <label for="busi_condition">업태<input id="busi_condition" name="busi_condition" type="text"></label>
+            <label for="item">종목<input id="item" name="item" type="text"></label><br>
+            <!--우편번호 검색-->
+            <div>
+                <label for="post_num">우편번호</label>
+                <input placeholder="우편번호" name="post_num"
+                       id="post_num" type="text" readonly="readonly">
+                <button type="button" onclick="execPostCode();"><i class="fa fa-search"></i>
+                    <!--                <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i>-->
+                    우편번호 찾기
+                </button>
+            </div>
+            <label for="addr1">주소1</label>
+            <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr1" id="addr1" type="text"
+                   readonly="readonly"/>
+            <label>주소2</label>
+            <input class="form-control" placeholder="상세주소" name="addr2" type="text"/><br>
+
+            <label>전화번호<input name="tel" type="text"></label>
+            <label>팩스번호<input name="fax" type="text"></label><br>
+            <label>홈페이지<input name="homePage" type="text"></label><br>
+            <div>
+                <label>법인여부</label>
+                <input type="radio" name="co_yn" value="C">법인
+                <input type="radio" name="co_yn" value="P">개인
+            </div>
+            <div>
+                <label>해외여부</label>
+                <input type="radio" name="foreign_yn" value="D">국내
+                <input type="radio" name="foreign_yn" value="F">해외<br>
+            </div>
+            <label>과세구분</label>
+            <select name="tax_yn">
+                <option value="Y">과세/면세</option>
+                <option value="N">비과세</option>
+            </select>
+            <div>
+                <label>국가</label>
+                <input name="country_eng" type="text">
+                <input name="country_kor" type="text">
+                <button type="button">검색</button>
+            </div>
+            <div>
+                <label>특수관계자</label>
+                <input name="special_relation" type="checkbox" value="Y">
+                <label>거래중지</label>
+                <input name="trade_stop" type="checkbox" value="Y">
+
+            </div>
+            <div>
+                <label>계약기간</label>
+                <input type="date" name="contract_period_S"><!--거래 시작일 날짜 선택-->
+                <input type="date" name="contract_period_E"><!--거래 종료일 날짜 선택-->
+            </div>
+            <div>
+                <label>등록정보</label>
+                <input name="regi_info_man">
+                <input name="regi_info_date" type="text" readonly/>
+            </div>
+            <div>
+                <label>변경정보</label>
+                <input name="modi_info_man">
+                <input name="modi_info_date" type="text" readonly/>
+            </div>
+            <br>
+            <div>
+                <label>[거래처 계좌정보]</label>
+                <table>
+                    <tr>
+                        <th>사무소</th>
+                        <th>은행</th>
+                        <th>계좌번호</th>
+                    </tr>
+                    <tr>
+                        <td><input></td>
+                        <td><input></td>
+                        <td><input></td>
+                    </tr>
+                </table>
+            </div><!--거래처 계좌정보 table-->
+        </div>
+        <button type="submit" value="등록">등록</button>
+    </form>
+</body>
+</html>
