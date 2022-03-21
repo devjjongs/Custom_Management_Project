@@ -70,14 +70,14 @@
     </script>
 </head>
 <body>
-    <div>
-        <h2>거래처 등록</h2>
-        <button type="reset">초기화</button>
-        <button type="submit" value="등록">등록</button>
-        <button type="submit">수정</button>
-        <button type="submit">삭제</button>
-    </div>
     <form action="insertCustom" method="post">
+        <div>
+            <h2>거래처 등록</h2>
+            <button type="reset">초기화</button>
+            <button type="submit" value="등록">등록</button>
+            <button type="submit">수정</button>
+            <button type="submit">삭제</button>
+        </div>
         <div>
             <label for="busi_num">사업자번호<input id="busi_num" name="busi_num" type="text"></label>
             <label for="shortName">약칭<input id="shortName" name="shortName" type="text"></label><br>
@@ -165,7 +165,6 @@
                 </table>
             </div><!--거래처 계좌정보 table-->
         </div>
-        <button type="submit" value="등록">등록</button>
     </form>
 </body>
 </html>

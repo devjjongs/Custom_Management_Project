@@ -51,8 +51,6 @@ public class CustomController {
     }
 
 
-
-
     ////////////////////////////////////////////////////////////////////////////////
 
     //  거래처 검색 메소드 //111
@@ -102,8 +100,14 @@ public class CustomController {
 //    }
 
 
+    //거래처 수정 호출
+    @GetMapping("/customInfo")
+    public String customInfo() {
+        return "customInfo";
+    }
+
     //거래처 정보 수정
-    @PostMapping("update")
+    @PostMapping("updateCustom")
     public void updateCustom(CustomVO customVo) {
         System.out.println(customVo);
         customService.updateCustom(customVo);
