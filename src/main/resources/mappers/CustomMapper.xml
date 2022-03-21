@@ -52,39 +52,36 @@
 
 
     <!--거래처 삭제-->
-    <delete id="deleteCustom" parameterType="java.util.List">
+    <delete id="deleteCustom" parameterType="CustomVO">
         DELETE
         FROM CUSTOM
-        WHERE
-        <foreach collection="busi_num" item="busi_num" open="" close=""
-                 separator="or">
-            (busi_num=#{busi_num})
-        </foreach>
+        WHERE busi_num = #{busi_num}
+          and custom = #{custom}
     </delete>
 
     <update id="updateCustom" parameterType="CustomVO">
         update custom
-        set shortName=#{shortName},
-            ceo=#{ceo},
-            charge_person=#{charge_person},
-            busi_condition#{busi_condition},
-            item=#{item},
-            post_num=#{post_num},
-            addr1=#{addr1},
-            addr2=#{addr2},
-            tel=#{tel},
-            fax=#{fax},
-            homepage=#{homepage},
-            co_yn=#{co_yn},
-            foreign_yn=#{foreign_yn},
-            tax_yn=#{tax_yn},
-            country_eng=#{country_eng},
-            country_kor=#{country_kor},
-            special_relation=#{special_relation},
-            trade_stop=#{trade_stop},
-            contract_period_S=#{contract_period_S},
-            contract_period_E=#{contract_period_E},
-            modi_info_man=#{modi_info_man},
+        set shortName=#{shortName,jdbcType=CHAR},
+            ceo=#{ceo,jdbcType=CHAR},
+            charge_person=#{charge_person,jdbcType=CHAR},
+            busi_condition=#{busi_condition,jdbcType=CHAR},
+            item=#{item,jdbcType=CHAR},
+            post_num=#{post_num,jdbcType=CHAR},
+            addr1=#{addr1,jdbcType=VARCHAR},
+            addr2=#{addr2,jdbcType=VARCHAR},
+            tel=#{tel,jdbcType=CHAR},
+            fax=#{fax,jdbcType=CHAR},
+            homePage=#{homePage,jdbcType=CHAR},
+            co_yn=#{co_yn,jdbcType=CHAR,jdbcType=CHAR},
+            foreign_yn=#{foreign_yn,jdbcType=CHAR},
+            tax_yn=#{tax_yn,jdbcType=CHAR},
+            country_eng=#{country_eng,jdbcType=CHAR},
+            country_kor=#{country_kor,jdbcType=CHAR},
+            special_relation=#{special_relation,jdbcType=CHAR},
+            trade_stop=#{trade_stop,jdbcType=CHAR},
+            contract_period_S=#{contract_period_S,jdbcType=CHAR},
+            contract_period_E=#{contract_period_E,jdbcType=CHAR},
+            modi_info_man=#{modi_info_man,jdbcType=CHAR},
             modi_info_date=sysdate
         where busi_num = #{busi_num}
     </update>

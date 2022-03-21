@@ -108,16 +108,18 @@ public class CustomController {
 
     //거래처 정보 수정
     @PostMapping("updateCustom")
-    public void updateCustom(CustomVO customVo) {
+    public String updateCustom(CustomVO customVo) {
         System.out.println(customVo);
         customService.updateCustom(customVo);
+        return "redirect:/";
     }
 
 
     //거래처 삭제
-    @GetMapping("/deleteCustom")
-    public String deleteCustom() {
-        return "deleteCustom";
+    @RequestMapping("deleteCustom")
+    public String deleteCustom(CustomVO customVo) {
+        customService.deleteCustom(customVo);
+        return "redirect:/";
     }
 
 
