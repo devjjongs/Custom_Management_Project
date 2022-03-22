@@ -45,7 +45,9 @@
                 </thead>
                 <tbody>
                     <tr th:each="custom : ${customSearchList}">
-                        <td name="busi_num" th:text="${custom.busi_num}"><a onclick=""/></td>
+                        <!--                        <td name="busi_num" th:text="${custom.busi_num}"></td>-->
+                        <td><a style="cursor:default" name="busi_num" th:text="${custom.busi_num}"
+                               ondblclick="location.href='/customInfo'"></a></td>
                         <td name="custom" th:text="${custom.custom}"></td>
                     </tr>
                 </tbody>

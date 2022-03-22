@@ -26,13 +26,13 @@ public class CustomController {
     @Autowired
     private CustomService customService;
 
-    //거래처 등록 호출
+    /*거래처 등록 호출*/
     @GetMapping("/customRegister")
     public String customRegister() {
         return "customRegister";
     }
 
-    //거래처 등록
+    /*거래처 등록*/
     @PostMapping("insertCustom")
     public String insertCustom(CustomVO customVo) {
         System.out.println(customVo);
@@ -40,12 +40,10 @@ public class CustomController {
         return "redirect:/";
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
-    //거래처 전체 목록
+    /*거래처 전체 목록*/
     @RequestMapping(value = {"/", "/custommanage"})
     public String customList(Model model) {
 
-//        List<CustomVO> customList = customDao.customList();
         List<CustomVO> customList = customService.customList();
         System.out.println(customList);
 
@@ -54,65 +52,40 @@ public class CustomController {
     }
 
 
-    ////////////////////////////////////////////////////////////////////////////////
-
-    //  거래처 검색 메소드 //111
-    //  파라미터 : 사업자번호, 거래처명
-    protected void getList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String busi_num = request.getParameter("BN");
-        String custom = request.getParameter("CS");
-
-    }
-
-
-    //    //    거래처 검색 메소드
-//    //    파라미터 : 사업자번호, 거래처명
+    /*거래처 검색 메소드*/
+    /*파라미터 : 사업자번호, 거래처명*/
     @RequestMapping(value = {"/", "/customSearchList"})
     public String customSearchList(Model model, @RequestParam(value = "busiNum") String busi_num, @RequestParam(value = "custom") String custom) throws Exception {
         System.out.println("custom search 진입");
         System.out.println("busiNum : " + busi_num);
         System.out.println("custom : " + custom);
-//
+
         List<CustomVO> customSearchList = customService.searchCustom(busi_num, custom);
         System.out.println(customSearchList.get(0));
-//
-//        ModelAndView mav = new ModelAndView();
-//
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map.put("customSearchList", customSearchList);
-//        map.put("busi_num", busi_num);
-//        map.put("custom", custom);
-//        mav.addObject("map", map);
-//        mav.setViewName("customanage");
+/*
+        ModelAndView mav = new ModelAndView();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("customSearchList", customSearchList);
+        map.put("busi_num", busi_num);
+        map.put("custom", custom);
+        mav.addObject("map", map);
+        mav.setViewName("customanage");*/
 
         model.addAttribute("customSearchList", customSearchList);
         return "searchCustomListPage";
     }
 
 
-//    @RequestMapping(value = "/customInfo", method = {RequestMethod.POST})
-//    public void selectCustom(@RequestParam("busi_num") String busi_num, @RequestParam("custom") String custom) {
-//        System.out.println(busi_num);
-//        System.out.println(custom);
-//
-//        CustomVO customVo = new CustomVO();
-//
-//        customVo.setBusi_num(busi_num);
-//        customVo.setCustom(custom);
-//
-//        customDao.customList();
-//        return;
-//    }
-
-
-    //거래처 수정 호출
+    /*거래처 수정 호출*/
     @GetMapping("/customInfo")
     public String customInfo() {
         return "customInfo";
     }
 
-    //거래처 정보 수정
+    /*거래처 정보 호출*/
+
+    /*거래처 정보 수정*/
     @PostMapping("/updateCustom")
     public String updateCustom(CustomVO customVo) {
         System.out.println(customVo);
@@ -120,37 +93,11 @@ public class CustomController {
         return "redirect:/";
     }
 
-    //거래처 삭제
+    /*거래처 삭제*/
     @RequestMapping("/deleteCustom")
     public String deleteCustom(String busiNum) {
         System.out.println(busiNum);
         customService.deleteCustom(busiNum);
         return "redirect:/";
     }
-
-
-//    //거래처 정보 수정
-//    @GetMapping("/customInfo")
-//    public void update(HttpSession session, Model model) {
-//        String busi_num = (String) session.getAttribute("busi_num");
-//        model.addAttribute("customSelect", customService.customSelect(busi_num));
-//    }
-
-
-/*    @RequestMapping("/")
-    public String main(){
-        return "";
-    }
-
-    // 거래처관리 페이지를 리턴하는 메소드
-    @RequestMapping("/customInsert")
-    public String insertCustom(CustomVo customvo) {
-        System.out.println("isnert custom 진입");
-        CustomDao.insertCustom(customvo);
-        return "customManage";
-    }
-
-
-
-*/
 }

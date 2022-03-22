@@ -5,19 +5,6 @@
 
 <mapper namespace="com.wishiext.wishiext.dao.CustomDAO">
 
-    <!--  거래처 등록  -->
-    <!--    <insert id="insertCustom" parameterType="CustomVO">-->
-    <!--        insert into CUSTOM(busi_num, custom, shortName, ceo, charge_person, busi_condition, item, post_num, addr1, addr2,-->
-    <!--                           tel, fax, homePage, co_yn, foreign_yn, tax_yn, country_eng, country_kor, special_relation,-->
-    <!--                           trade_stop, contract_period_S, contract_period_E, regi_info_Man, regi_info_date,-->
-    <!--                           modi_info_man, modi_info_date)-->
-    <!--        values (#{busi_num}, #{custom}, #{shortName}, #{ceo}, #{charge_person}, #{busi_condition}, #{item}, #{post_num},-->
-    <!--                #{add1}, #{add2}, #{tel}, #{fax}, #{homePage}, #{co_yn}, #{foreign_yn}, #{tax_yn}, #{country_eng}, #{country_kor},-->
-    <!--                #{special_relation}, #{trade_stop}, #{contract_period_S}, #{contract_period_E}, #{regi_info_Man},-->
-    <!--                sysdate, #{modi_info_Man,jdbcType=VARCHAR},-->
-    <!--                sysdate)-->
-    <!--    </insert>-->
-
     <insert id="insertCustom" parameterType="CustomVO">
         insert into CUSTOM(busi_num, custom, shortName, ceo, charge_person, busi_condition, item, post_num, addr1,
                            addr2, tel, fax, homePage, co_yn, foreign_yn, tax_yn, country_eng, country_kor,
@@ -41,19 +28,13 @@
 
     <!--거래처 검색-->
     <select id="customSearchList" parameterType="String" resultType="CustomVO">
-        select * from custom
-        where busi_num like '%'|| #{busi_num} ||'%'
-        and custom like '%'|| #{custom} ||'%'
-        <!--        SELECT busi_num, custom-->
-        <!--        FROM CUSTOM-->
-        <!--        WHERE 1=1-->
-        <!--        <if test="isNotNull(busi_num)">-->
-        <!--            or busi_num like '%' || '#{busi_num} ' || '%'-->
-        <!--        </if>-->
-        <!--        <if test="isNotNull(custom)">-->
-        <!--            or custom like '%' || '#{custom}' || '%'-->
-        <!--        </if>-->
+        select busi_num, custom
+        from custom
+        where busi_num like '%' || #{busi_num} || '%'
+           or custom like '%' || #{custom} || '%'
     </select>
+
+    <!---->
 
 
     <!--거래처 삭제-->
@@ -91,8 +72,4 @@
             modi_info_date=sysdate
         where busi_num = #{busi_num}
     </update>
-    <!--shortName, ceo, charge_person, busi_condition, item, post_num, addr1,
-                           addr2, tel, fax, homePage, co_yn, foreign_yn, tax_yn, country_eng, country_kor,
-                           special_relation, trade_stop, contract_period_S, contract_period_E, regi_info_man,
-                           regi_info_date-->
 </mapper>
