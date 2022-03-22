@@ -31,10 +31,17 @@
         select busi_num, custom
         from custom
         where busi_num like '%' || #{busi_num} || '%'
-           or custom like '%' || #{custom} || '%'
+          and custom like '%' || #{custom} || '%'
     </select>
 
-    <!---->
+    <!--거래처 정보 조회-->
+    <select id="customDetail" parameterType="String" resultType="CustomVO">
+        select C.*
+             , A.*
+        from custom C
+                 inner join account A on C.busi_num = A.busi_num
+        where A.busi_num like #{busi_num} || '%'
+    </select>
 
 
     <!--거래처 삭제-->

@@ -72,7 +72,6 @@
                 location.href = '/deleteCustom?busiNum=' + busiNum;
             }
         }
-
     </script>
     <script>
         $('input:radio[name="co_yn"]').val();
@@ -86,8 +85,8 @@
     </script>
 </head>
 <body>
-    <!--    <form action="updateCustom" method="post">-->
-    <form id="updateCustom" method="post">
+    <form action="updateCustom" method="post">
+        <!--        <form id="updateCustom" method="post">-->
         <div>
             <h2>거래처 등록</h2>
             <button type="reset">초기화</button>
@@ -98,18 +97,22 @@
         </div>
         <div>
             <!--            <label for="busi_num">사업자번호<input id="busi_num" name="busi_num" type="text"></label>-->
-            사업자번호<input id="busi_num" name="busi_num" type="text">
-            <label for="shortName">약칭<input id="shortName" name="shortName" type="text"></label><br>
-            <label for="custom">거래처명<input id="custom" name="custom" type="text"></label><br>
-            <label for="ceo">대표자<input id="ceo" name="ceo" type="text"></label>
-            <label for="charge_person">담당자<input id="charge_person" name="charge_person" type="text"></label><br>
-            <label for="busi_condition">업태<input id="busi_condition" name="busi_condition" type="text"></label>
-            <label for="item">종목<input id="item" name="item" type="text"></label><br>
+            사업자번호<input id="busi_num" name="busi_num" type="text" th:value="${customDetail.busi_num}">
+            <label for="shortName">약칭<input id="shortName" name="shortName" type="text"
+                                            th:value="${customDetail.shortName}"></label><br>
+            <label for="custom">거래처명<input id="custom" name="custom" type="text"
+                                           th:value="${customDetail.custom}"></label><br>
+            <label for="ceo">대표자<input id="ceo" name="ceo" type="text" th:value="${customDetail.ceo}"></label>
+            <label for="charge_person">담당자<input id="charge_person" name="charge_person" type="text"
+                                                 th:value="${customDetail.charge_person}"></label><br>
+            <label for="busi_condition">업태<input id="busi_condition" name="busi_condition" type="text"
+                                                 th:value="${customDetail.busi_condition}"></label>
+            <label for="item">종목<input id="item" name="item" type="text" th:value="${customDetail.item}"></label><br>
             <!--우편번호 검색-->
             <div>
                 <label for="post_num">우편번호</label>
                 <input placeholder="우편번호" name="post_num"
-                       id="post_num" type="text" readonly="readonly">
+                       id="post_num" type="text" readonly="readonly" th:value="${customDetail.post_num}">
                 <button type="button" onclick="execPostCode();"><i class="fa fa-search"></i>
                     <!--                <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i>-->
                     우편번호 찾기
@@ -117,13 +120,14 @@
             </div>
             <label for="addr1">주소1</label>
             <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="addr1" id="addr1" type="text"
-                   readonly="readonly"/>
+                   readonly="readonly" th:value="${customDetail.addr1}"/>
             <label>주소2</label>
-            <input class="form-control" placeholder="상세주소" name="addr2" type="text"/><br>
+            <input class="form-control" placeholder="상세주소" name="addr2" type="text"
+                   th:value="${customDetail.addr2}"/><br>
 
-            <label>전화번호<input name="tel" type="text"></label>
-            <label>팩스번호<input name="fax" type="text"></label><br>
-            <label>홈페이지<input name="homePage" type="text"></label><br>
+            <label>전화번호<input name="tel" type="text" th:value="${customDetail.tel}"></label>
+            <label>팩스번호<input name="fax" type="text" th:value="${customDetail.fax}"></label><br>
+            <label>홈페이지<input name="homePage" type="text" th:value="${customDetail.homePage}"></label><br>
             <div>
                 <label>법인여부</label>
                 <input type="radio" name="co_yn" value="0">법인
@@ -141,31 +145,32 @@
             </select>
             <div>
                 <label>국가</label>
-                <input name="country_eng" type="text">
-                <input name="country_kor" type="text">
+                <input name="country_eng" type="text" th:value="${customDetail.country_eng}">
+                <input name="country_kor" type="text" th:value="${customDetail.country_kor}">
                 <button type="button">검색</button>
             </div>
             <div>
                 <label>특수관계자</label>
-                <input name="special_relation" type="checkbox" value="Y">
+                <input name="special_relation" type="checkbox" value="Y" th:value="${customDetail.special_relation}">
                 <label>거래중지</label>
-                <input name="trade_stop" type="checkbox" value="Y">
-
+                <input name="trade_stop" type="checkbox" value="Y" th:value="${customDetail.trade_stop}">
             </div>
             <div>
                 <label>계약기간</label>
-                <input type="date" name="contract_period_S"><!--거래 시작일 날짜 선택-->
-                <input type="date" name="contract_period_E"><!--거래 종료일 날짜 선택-->
+                <input type="date" name="contract_period_S" th:value="${customDetail.contract_period_S}">
+                <!--거래 시작일 날짜 선택-->
+                <input type="date" name="contract_period_E" th:value="${customDetail.contract_period_E}">
+                <!--거래 종료일 날짜 선택-->
             </div>
             <div>
                 <label>등록정보</label>
-                <input name="regi_info_man">
-                <input name="regi_info_date" type="text" readonly/>
+                <input name="regi_info_man" th:value="${customDetail.regi_info_man}">
+                <input name="regi_info_date" type="text" readonly th:value="${customDetail.regi_info_date}">
             </div>
             <div>
                 <label>변경정보</label>
-                <input name="modi_info_man">
-                <input name="modi_info_date" type="text" readonly/>
+                <input name="modi_info_man" th:value="${customDetail.modi_info_man}">
+                <input name="modi_info_date" type="text" th:value="${customDetail.modi_info_date}" readonly>
             </div>
             <br>
             <div>
@@ -177,9 +182,9 @@
                         <th>계좌번호</th>
                     </tr>
                     <tr>
-                        <td><input></td>
-                        <td><input></td>
-                        <td><input></td>
+                        <td><input name="factory" th:value="${customDetail.factory}"></td>
+                        <td><input name="trade_bank" th:value="${customDetail.trade_bank}"></td>
+                        <td><input name="account_num" th:value="${customDetail.account_num}"></td>
                     </tr>
                 </table>
             </div><!--거래처 계좌정보 table-->

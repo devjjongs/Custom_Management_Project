@@ -37,7 +37,7 @@ public class CustomController {
     public String insertCustom(CustomVO customVo) {
         System.out.println(customVo);
         customService.insertCustom(customVo);
-        return "redirect:/";
+        return "redirect:/custommanage";
     }
 
     /*거래처 전체 목록*/
@@ -62,20 +62,24 @@ public class CustomController {
 
         List<CustomVO> customSearchList = customService.searchCustom(busi_num, custom);
         System.out.println(customSearchList.get(0));
-/*
-        ModelAndView mav = new ModelAndView();
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("customSearchList", customSearchList);
-        map.put("busi_num", busi_num);
-        map.put("custom", custom);
-        mav.addObject("map", map);
-        mav.setViewName("customanage");*/
 
         model.addAttribute("customSearchList", customSearchList);
         return "searchCustomListPage";
     }
 
+
+    /*거래처 정보 호출*/
+    @RequestMapping(value = "/customDetail")
+    public String selectCustom(Model model, @RequestParam(value = "busiNum") String busi_num) {
+        System.out.println("select custom 진입");
+        System.out.println("busiNum : " + busi_num + "aaaaaa");
+
+        CustomVO customDetail = customService.customDetail(busi_num);
+        System.out.println(customDetail);
+
+        model.addAttribute("customDetail", customDetail);
+        return "customInfo";
+    }
 
     /*거래처 수정 호출*/
     @GetMapping("/customInfo")
@@ -83,14 +87,13 @@ public class CustomController {
         return "customInfo";
     }
 
-    /*거래처 정보 호출*/
 
     /*거래처 정보 수정*/
     @PostMapping("/updateCustom")
     public String updateCustom(CustomVO customVo) {
         System.out.println(customVo);
         customService.updateCustom(customVo);
-        return "redirect:/";
+        return "redirect:/custommanage";
     }
 
     /*거래처 삭제*/
@@ -98,6 +101,6 @@ public class CustomController {
     public String deleteCustom(String busiNum) {
         System.out.println(busiNum);
         customService.deleteCustom(busiNum);
-        return "redirect:/";
+        return "redirect:/custommanage";
     }
 }

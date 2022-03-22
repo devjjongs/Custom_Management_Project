@@ -27,6 +27,18 @@ public class CustomServiceImpl implements CustomService {
         return searchCustom;
     }
 
+    /*거래처 정보 조회*/
+    @Override
+    public CustomVO customDetail(String busi_num) {
+//        List<CustomVO> customDetail = customDao.customDetail(busi_num);
+//        return customDetail;
+
+        System.out.println("111 busiNum : " + busi_num + "aaaaaa");
+        busi_num = busi_num.trim();
+        System.out.println("222 busiNum : " + busi_num + "aaaaaa");
+        return customDao.customDetail(busi_num);
+    }
+
     /*거래처 조회*/
     @Override
     public List<CustomVO> customList() {
@@ -38,6 +50,7 @@ public class CustomServiceImpl implements CustomService {
 //        System.out.println("131453254356758786");
         return customList;
     }
+
 
     /*거래처 정보 수정*/
     @Override

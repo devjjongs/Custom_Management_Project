@@ -15,6 +15,14 @@
             location.href = '/customSearchList?busiNum=' + busiNum + '&custom=' + custom;
         }
     </script>
+    <script>
+        function selectCustom() {
+            var busiNum = $('#busi_num').val();
+            console.log(busiNum);
+
+            location.href = '/selectCustom?busiNum=' + busiNum;
+        }
+    </script>
 </head>
 <body>
     <form>
@@ -45,16 +53,18 @@
                 </thead>
                 <tbody>
                     <tr th:each="custom : ${customSearchList}">
-                        <!--                        <td name="busi_num" th:text="${custom.busi_num}"></td>-->
-                        <td><a style="cursor:default" name="busi_num" th:text="${custom.busi_num}"
-                               ondblclick="location.href='/customInfo'"></a></td>
+                        <!--<td style="cursor: default" id="busi_num" name="busi_num" th:text="${custom.busi_num}"
+                            onclick="location.href='selectCustom()'"></td>-->
+                        <td style="cursor: default">
+                            <a th:href="'/customDetail?busiNum='+${custom.busi_num}" th:text="${custom.busi_num}"></a>
+                        </td>
+                        <!--<td><a style="cursor:default" id="busi_num" name="busi_num" th:text="${custom.busi_num}"
+                               onclick="selectCustom()"></a></td>-->
                         <td name="custom" th:text="${custom.custom}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
     </form>
-
 </body>
 </html>

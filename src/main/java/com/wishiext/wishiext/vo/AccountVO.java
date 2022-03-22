@@ -7,6 +7,6 @@ public class AccountVO {
 
     private String busi_num;
     private String factory;
-    private String bank;
-    private String accountNum;
+    private String trade_bank;
+    private String account_num;
 }

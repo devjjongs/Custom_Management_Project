@@ -30,4 +30,8 @@ public class CustomVO {
     private String regi_info_date;
     private String modi_info_man;
     private String modi_info_date;
+
+    private String factory;
+    private String trade_bank;
+    private String account_num;
 }
