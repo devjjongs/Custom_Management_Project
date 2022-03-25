@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class CustomVO {
+    
+    /*거래처 기본 정보*/
     private String busi_num;
     private String custom;
     private String shortName;
@@ -31,6 +33,7 @@ public class CustomVO {
     private String modi_info_man;
     private String modi_info_date;
 
+    /*거래처 계좌 정보*/
     private String factory;
     private String trade_bank;
     private String account_num;

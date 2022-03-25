@@ -6,16 +6,55 @@
 <mapper namespace="com.wishiext.wishiext.dao.CustomDAO">
 
     <insert id="insertCustom" parameterType="CustomVO">
-        insert into CUSTOM(busi_num, custom, shortName, ceo, charge_person, busi_condition, item, post_num, addr1,
+        insert
+        all
+        into CUSTOM(busi_num, custom, shortName, ceo, charge_person, busi_condition, item, post_num, addr1,
                            addr2, tel, fax, homePage, co_yn, foreign_yn, tax_yn, country_eng, country_kor,
                            special_relation, trade_stop, contract_period_S, contract_period_E, regi_info_man,
                            regi_info_date)
-        values (#{busi_num}, #{custom}, #{shortName}, #{ceo}, #{charge_person}, #{busi_condition}, #{item}, #{post_num},
-                #{addr1,jdbcType=VARCHAR}, #{addr2,jdbcType=VARCHAR}, #{tel}, #{fax}, #{homePage},
-                #{co_yn,jdbcType=CHAR}, #{foreign_yn,jdbcType=CHAR}, #{tax_yn}, #{country_eng}, #{country_kor},
-                #{special_relation,jdbcType=CHAR}, #{trade_stop,jdbcType=CHAR}, #{contract_period_S},
-                #{contract_period_E}, #{regi_info_man},
-                sysdate)
+        values (
+        #{busi_num},
+        #{custom},
+        #{shortName},
+        #{ceo},
+        #{charge_person},
+        #{busi_condition},
+        #{item},
+        #{post_num},
+        #{addr1,jdbcType=VARCHAR},
+        #{addr2,jdbcType=VARCHAR},
+        #{tel},
+        #{fax},
+        #{homePage},
+        #{co_yn,jdbcType=VARCHAR},
+        #{foreign_yn,jdbcType=VARCHAR},
+        #{tax_yn,jdbcType=VARCHAR},
+        #{country_eng},
+        #{country_kor},
+        #{special_relation,jdbcType=VARCHAR},
+        #{trade_stop,jdbcType=VARCHAR},
+        #{contract_period_S},
+        #{contract_period_E},
+        #{regi_info_man},
+        sysdate
+        )
+        into
+        account
+        (
+        busi_num,
+        factory,
+        trade_bank,
+        account_num
+        )
+        values
+        (
+        #{busi_num},
+        #{factory},
+        #{trade_bank},
+        #{account_num}
+        )
+        select *
+        from dual
     </insert>
 
 
@@ -41,6 +80,7 @@
         from custom C
                  inner join account A on C.busi_num = A.busi_num
         where A.busi_num like #{busi_num} || '%'
+           or C.custom like #{custom} || '%'
     </select>
 
 
