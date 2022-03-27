@@ -169,7 +169,8 @@
 
             <div>
                 <label>등록정보</label>
-                <input name="regi_info_man" th:value="${customDetail.regi_info_man}">
+                <input name="regi_info_man" th:value="${customDetail.regi_info_man}"
+                       th:field="${customDetail.regi_info_man}">
                 <input name="regi_info_date" type="text" readonly th:value="${customDetail.regi_info_date}">
             </div>
 
@@ -195,7 +196,6 @@
                 </tr>
             </table>
         </div><!--거래처 계좌정보 table-->
-        </div>
     </form>
 </body>
 </html>

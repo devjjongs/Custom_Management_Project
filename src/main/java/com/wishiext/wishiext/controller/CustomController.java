@@ -17,11 +17,13 @@ public class CustomController {
     @Autowired
     private CustomService customService;
 
+
     /*거래처 등록 호출*/
     @GetMapping("/customRegister")
     public String customRegister() {
         return "customRegister";
     }
+
 
     /*거래처 등록*/
     @PostMapping("insertCustom")
@@ -30,6 +32,7 @@ public class CustomController {
         customService.insertCustom(customVo);
         return "redirect:/custommanage";
     }
+
 
     /*거래처 전체 목록*/
     @RequestMapping(value = {"/", "/custommanage"})
@@ -72,6 +75,7 @@ public class CustomController {
         return "customInfo";
     }
 
+
     /*거래처 수정 호출*/
     @GetMapping("/customInfo")
     public String customInfo() {
@@ -86,6 +90,7 @@ public class CustomController {
         customService.updateCustom(customVo);
         return "redirect:/custommanage";
     }
+
 
     /*거래처 삭제*/
     @RequestMapping("/deleteCustom")
