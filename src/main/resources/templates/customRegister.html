@@ -68,6 +68,23 @@
         //name으로 select값 가져오기
         $("select[name=tax_yn]").val();
     </script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#contract_period_S").datepicker({
+                dateFormat:"yy/mm/dd"
+            });
+        });
+        $(function () {
+            $("#contract_period_E").datepicker({
+                dateFormat:"yy/mm/dd"
+            });
+        });
+    </script><!--계약기간 datepicker-->
+
 </head>
 <body>
     <form action="insertCustom" method="post">
@@ -128,24 +145,24 @@
             </div>
             <div>
                 <label>특수관계자</label>
-                <input name="special_relation" type="checkbox" value="Y">
+                <input name="special_relation" id="special_relation"type="checkbox" value="Y">
                 <label>거래중지</label>
-                <input name="trade_stop" type="checkbox" value="Y">
+                <input name="trade_stop" id="trade_stop" type="checkbox" value="Y">
 
             </div>
             <div>
                 <label>계약기간</label>
-                <input type="date" name="contract_period_S"><!--거래 시작일 날짜 선택-->
-                <input type="date" name="contract_period_E"><!--거래 종료일 날짜 선택-->
+                <input type="text" name="contract_period_S" id="contract_period_S" placeholder="거래 시작일 선택"><!--거래 시작일 날짜 선택-->
+                <input type="text" name="contract_period_E" id="contract_period_E" placeholder="거래 종료일 선택"><!--거래 종료일 날짜 선택-->
             </div>
             <div>
                 <label>등록정보</label>
-                <input name="regi_info_man" type="text">
-                <input name="regi_info_date" type="text" readonly/>)
+                <input name="regi_info_man" type="text" placeholder="등록자">
+                <input name="regi_info_date" type="text" readonly/>
             </div>
             <div>
                 <label>변경정보</label>
-                <input name="modi_info_man" type="text">
+                <input name="modi_info_man" type="text" placeholder="변경자">
                 <input name="modi_info_date" type="text" readonly/>
             </div>
             <br>

@@ -45,7 +45,9 @@
                 </thead>
                 <tbody>
                     <tr th:each="custom : ${customList}">
-                        <td name="busi_num" th:text="${custom.busi_num}"></td>
+                        <td style="cursor: default">
+                            <a th:href="'/customDetail?busiNum='+${custom.busi_num}" th:text="${custom.busi_num}"></a>
+                        </td>
                         <td name="custom" th:text="${custom.custom}"></td>
                     </tr>
                 </tbody>

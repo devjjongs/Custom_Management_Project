@@ -76,13 +76,29 @@
     <script>
         $('input:radio[name="co_yn"]').val();
     </script><!--법인여부 라디오버튼 체크박스-->
-    <script>
+    <script                                                                                                                                                                                                     >
         $('input:radio[name="foreign_yn"]').val();
     </script><!--법인여부 라디오버튼 체크박스-->
     <script type="text/javascript">
         //name으로 select값 가져오기
         $("select[name=tax_yn]").val();
     </script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#contract_period_S").datepicker({
+                dateFormat: "yy/mm/dd"
+            });
+        });
+        $(function () {
+            $("#contract_period_E").datepicker({
+                dateFormat: "yy/mm/dd"
+            });
+        });
+    </script><!--계약기간 datepicker-->
 </head>
 <body>
     <form action="updateCustom" method="post">
@@ -96,8 +112,8 @@
             <button type="button" onclick="deleteCustom()">삭제</button>
         </div>
         <div>
-            <!--            <label for="busi_num">사업자번호<input id="busi_num" name="busi_num" type="text"></label>-->
-            사업자번호<input id="busi_num" name="busi_num" type="text" th:value="${customDetail.busi_num}">
+            <label for="busi_num">사업자번호<input id="busi_num" name="busi_num" type="text"
+                                              th:value="${customDetail.busi_num}"></label>
             <label for="shortName">약칭<input id="shortName" name="shortName" type="text"
                                             th:value="${customDetail.shortName}"></label><br>
             <label for="custom">거래처명<input id="custom" name="custom" type="text"
@@ -131,19 +147,19 @@
 
             <div>
                 <label>법인여부</label>
-                <input type="radio" name="co_yn" value="0">법인
-                <input type="radio" name="co_yn" value="1">개인
+                <input type="radio" name="co_yn" value="C" th:checked="${customDetail.co_yn eq'C'}">법인
+                <input type="radio" name="co_yn" value="P" th:checked="${customDetail.co_yn eq'P'}">개인
             </div>
 
             <div>
                 <label>해외여부</label>
-                <input type="radio" name="foreign_yn" value="0">국내
-                <input type="radio" name="foreign_yn" value="1">해외<br>
+                <input type="radio" name="foreign_yn" value="D" th:checked="${customDetail.foreign_yn eq'D'}">국내
+                <input type="radio" name="foreign_yn" value="F" th:checked="${customDetail.foreign_yn eq'F'}">해외<br>
             </div>
             <label>과세구분</label>
             <select name="tax_yn">
-                <option value="0">과세/면세</option>
-                <option value="1">비과세</option>
+                <option value="Y" th:selected="${customDetail.tax_yn eq'Y'}">과세/면세</option>
+                <option value="N" th:selected="${customDetail.tax_yn eq'N'}">비과세</option>
             </select>
             <div>
                 <label>국가</label>
@@ -154,29 +170,31 @@
 
             <div>
                 <label>특수관계자</label>
-                <input name="special_relation" type="checkbox" value="Y" th:value="${customDetail.special_relation}">
+                <input name="special_relation" id="special_relation" type="checkbox" value="Y"
+                       th:value="${customDetail.special_relation}">
                 <label>거래중지</label>
-                <input name="trade_stop" type="checkbox" value="Y" th:value="${customDetail.trade_stop}">
+                <input name="trade_stop" id="trade_stop" type="checkbox" value="Y"
+                       th:value="${customDetail.trade_stop}">
             </div>
 
             <div>
                 <label>계약기간</label>
-                <input type="date" name="contract_period_S" th:value="${customDetail.contract_period_S}">
-                <!--거래 시작일 날짜 선택-->
-                <input type="date" name="contract_period_E" th:value="${customDetail.contract_period_E}">
+                <input type="text" name="contract_period_S" id="contract_period_S" placeholder="거래 시작일 선택"
+                       th:value="${customDetail.contract_period_S}"><!--거래 시작일 날짜 선택-->
+                <input type="text" name="contract_period_E" id="contract_period_E" placeholder="거래 종료일 선택"
+                       th:value="${customDetail.contract_period_E}">
                 <!--거래 종료일 날짜 선택-->
             </div>
 
             <div>
                 <label>등록정보</label>
-                <input name="regi_info_man" th:value="${customDetail.regi_info_man}"
-                       th:field="${customDetail.regi_info_man}">
+                <input name="regi_info_man" th:value="${customDetail.regi_info_man}" placeholder="등록자">
                 <input name="regi_info_date" type="text" readonly th:value="${customDetail.regi_info_date}">
             </div>
 
             <div>
                 <label>변경정보</label>
-                <input name="modi_info_man" th:value="${customDetail.modi_info_man}">
+                <input name="modi_info_man" th:value="${customDetail.modi_info_man}" placeholder="변경자">
                 <input name="modi_info_date" type="text" th:value="${customDetail.modi_info_date}" readonly>
             </div>
             <br>
